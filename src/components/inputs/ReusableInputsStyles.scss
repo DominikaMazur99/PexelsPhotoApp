@@ -1,18 +1,9 @@
 .input-box {
-    margin-bottom: 1rem;
-    align-items: center;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
-    flex: 1;
     width: 100%;
-
-    &__label {
-        display: block;
-        margin-bottom: 0.5rem;
-        text-align: left;
-        width: 100%;
-    }
 
     &__field,
     .select-container__button {
@@ -32,7 +23,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            background-color: transparent;
+            background-color: white;
             cursor: pointer;
 
             .color-circle {
@@ -40,6 +31,24 @@
                 height: 1rem;
                 border-radius: 50%;
                 margin-right: 0.5rem;
+            }
+            .arrow-up {
+                margin-left: auto;
+                border: solid grey;
+                border-width: 0 0.125rem 0.125rem 0;
+                display: inline-block;
+                padding: 0.25rem;
+                transform: rotate(-135deg);
+                transition: transform 0.3s ease;
+            }
+            .arrow-down {
+                margin-left: auto;
+                border: solid grey;
+                border-width: 0 0.125rem 0.125rem 0;
+                display: inline-block;
+                padding: 0.25rem;
+                transform: rotate(45deg);
+                transition: transform 0.3s ease;
             }
         }
 

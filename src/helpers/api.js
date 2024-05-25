@@ -1,19 +1,20 @@
-export const fetchData = async (url, method = "GET", data = {}) => {
+// helpers/api.js
+
+export const fetchData = async (
+    url,
+    method = "GET",
+    body = {},
+    headers = {}
+) => {
     try {
         const response = await fetch(url, {
-            method: method,
-            headers: { "Content-Type": "application/json" },
-            body: method === "GET" ? undefined : JSON.stringify(data),
+            method,
+            headers,
+            body: method !== "GET" ? JSON.stringify(body) : null,
         });
-
-        if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
-
-        const responseData = await response.json();
-        return responseData;
+        return await response.json();
     } catch (error) {
-        console.error("Fetch error:", error.message);
+        console.error("API fetch error:", error);
         throw error;
     }
 };

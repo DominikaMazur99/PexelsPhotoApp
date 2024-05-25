@@ -1,0 +1,24 @@
+.main-photo img {
+    width: 80%;
+    max-width: 50rem;
+    max-height: 25rem;
+    margin: 2rem auto;
+}
+
+.photo-thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.photo-thumbnails img {
+    margin: 0.3125rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    max-height: 12.5rem;
+}
+
+.photo-thumbnails img.selected {
+    transform: scale(1.1);
+    border: 0.125rem solid #000;
+}

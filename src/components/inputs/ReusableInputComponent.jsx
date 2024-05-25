@@ -35,12 +35,7 @@ function ReusableInputComponent({
             />
         );
 
-    return (
-        <div className="input-box">
-            <label className="input-box__label">{label}</label>
-            {inputElement}
-        </div>
-    );
+    return <div className="input-box">{inputElement}</div>;
 }
 
 export default ReusableInputComponent;

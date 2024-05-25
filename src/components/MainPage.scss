@@ -1,0 +1,14 @@
+.app-container {
+    width: calc(100vw - 4rem);
+    height: calc(100vh - 4rem);
+    padding: 2rem;
+    margin: 0 auto;
+    min-width: 600px;
+    box-sizing: border-box;
+}
+.loading-indicator {
+    margin: 20px;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}

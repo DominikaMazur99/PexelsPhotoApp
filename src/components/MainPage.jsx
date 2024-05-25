@@ -1,95 +1,97 @@
-import React, { useState } from "react";
-import "../App.css";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import PhotosConfigurationForm from "./forms/PhotosConfigurationForm";
+import PhotoBoard from "./board/PhotoBoard";
+import { fetchData } from "../helpers/api.js";
+
+import "./MainPage.scss";
 
 const PEXELS_API_URL = "https://api.pexels.com/v1/search";
+
 function MainPage() {
-    const [query, setQuery] = useState("");
-    const [color, setColor] = useState("");
     const [photos, setPhotos] = useState([]);
     const [selectedPhoto, setSelectedPhoto] = useState(null);
-    console.log(process.env.REACT_APP_PEXELS_API_KEY);
-    const fetchPhotos = async () => {
+    const [hasMore, setHasMore] = useState(true);
+    const [page, setPage] = useState(1);
+    const [query, setQuery] = useState({ topic: "", color: "" });
+
+    const elementRef = useRef(null);
+
+    const fetchPhotos = useCallback(async (topic, color, page) => {
         try {
             const url = `${PEXELS_API_URL}?query=${encodeURIComponent(
-                query
-            )}&color=${encodeURIComponent(color || "")}&per_page=15`;
-            const response = await fetch(url, {
-                headers: {
-                    Authorization: process.env.REACT_APP_PEXELS_API_KEY,
-                },
-            });
+                topic
+            )}&color=${encodeURIComponent(
+                color || ""
+            )}&page=${encodeURIComponent(page || 1)}`;
+            const headers = {
+                Authorization: process.env.REACT_APP_PEXELS_API_KEY,
+            };
 
-            if (!response.ok) {
-                throw new Error(
-                    `Error ${response.status}: ${response.statusText}`
-                );
-            }
-
-            const responseData = await response.json();
-            setPhotos(responseData.photos);
-            setSelectedPhoto(responseData.photos[0] || null);
+            const responseData = await fetchData(url, "GET", {}, headers);
+            return responseData;
         } catch (error) {
             console.error("Error fetching photos:", error);
+            throw error;
+        }
+    }, []);
+
+    const fetchMoreItems = useCallback(async () => {
+        if (!hasMore) return;
+
+        try {
+            const response = await fetchPhotos(query.topic, query.color, page);
+            if (response.photos.length > 0) {
+                setPhotos((prevPhotos) => [...prevPhotos, ...response.photos]);
+                setPage((prevPage) => prevPage + 1);
+            } else {
+                setHasMore(false);
+            }
+        } catch (error) {
+            console.error("Error fetching more photos:", error);
+            setHasMore(false);
+        }
+    }, [query, page, hasMore, fetchPhotos]);
+
+    const onIntersection = (entries) => {
+        const firstEntry = entries[0];
+        if (firstEntry.isIntersecting && hasMore) {
+            fetchMoreItems();
         }
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        fetchPhotos();
-    };
+    useEffect(() => {
+        const observer = new IntersectionObserver(onIntersection);
+        if (elementRef.current) {
+            observer.observe(elementRef.current);
+        }
+        return () => {
+            if (observer) {
+                observer.disconnect();
+            }
+        };
+    }, [photos]);
+
     return (
-        <div className="App">
+        <div className="app-container">
             <header>
-                <PhotosConfigurationForm />
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                    />
-                    <select
-                        value={color}
-                        onChange={(e) => setColor(e.target.value)}
-                    >
-                        <option value="">Any Color</option>
-                        <option value="red">Red</option>
-                        <option value="orange">Orange</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="green">Green</option>
-                        <option value="turquoise">Turquoise</option>
-                        <option value="blue">Blue</option>
-                        <option value="violet">Violet</option>
-                        <option value="pink">Pink</option>
-                        <option value="brown">Brown</option>
-                        <option value="black">Black</option>
-                        <option value="gray">Gray</option>
-                        <option value="white">White</option>
-                    </select>
-                    <button type="submit">Search</button>
-                </form>
+                <PhotosConfigurationForm
+                    setPhotos={(newPhotos) => {
+                        setPhotos(newPhotos);
+                        setPage(2); // Reset page number for new search
+                        setHasMore(true);
+                    }}
+                    setSelectedPhoto={setSelectedPhoto}
+                    setQuery={setQuery}
+                    fetchPhotos={fetchPhotos} // Pass fetchPhotos function to the form component
+                />
             </header>
-            {selectedPhoto && (
-                <div className="main-photo">
-                    <img
-                        src={selectedPhoto.src.large}
-                        alt={selectedPhoto.alt}
-                    />
-                </div>
-            )}
-            <div className="photo-thumbnails">
-                {photos.map((photo) => (
-                    <img
-                        key={photo.id}
-                        src={photo.src.small}
-                        alt={photo.alt}
-                        onClick={() => setSelectedPhoto(photo)}
-                        className={
-                            photo.id === selectedPhoto?.id ? "selected" : ""
-                        }
-                    />
-                ))}
+            <PhotoBoard
+                selectedPhoto={selectedPhoto}
+                photos={photos}
+                setSelectedPhoto={setSelectedPhoto}
+            />
+            <div ref={elementRef} className="loading-indicator">
+                {hasMore ? "Loading more photos..." : "No more photos"}
             </div>
         </div>
     );

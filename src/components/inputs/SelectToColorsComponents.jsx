@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Icon from "@mdi/react";
+import { mdiCancel } from "@mdi/js";
 import "./ReusableInputsStyles.scss";
 
 function SelectToColorsComponent({
@@ -21,7 +23,6 @@ function SelectToColorsComponent({
 
     return (
         <div className="input-box">
-            <label className="input-box__label">{label}</label>
             <div className="select-container">
                 <button
                     onClick={toggleDropdown}
@@ -40,6 +41,7 @@ function SelectToColorsComponent({
                     ) : (
                         placeholder
                     )}
+                    <span className={isOpen ? `arrow-up` : `arrow-down`}></span>
                 </button>
                 {isOpen && (
                     <div className="select-container__options">
@@ -47,10 +49,19 @@ function SelectToColorsComponent({
                             <div
                                 key={index}
                                 className="option-tile"
-                                style={{ backgroundColor: option.value }}
+                                style={{
+                                    backgroundColor: option.value,
+                                    border: "0.5px solid gray",
+                                }}
                                 onClick={() => handleSelect(option.value)}
                             ></div>
                         ))}
+                        <div
+                            className="option-tile"
+                            onClick={() => handleSelect("")}
+                        >
+                            <Icon path={mdiCancel} size={2} color="grey" />
+                        </div>
                     </div>
                 )}
             </div>
