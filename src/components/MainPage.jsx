@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import PhotosConfigurationForm from "./forms/PhotosConfigurationForm";
 import PhotoBoard from "./board/PhotoBoard";
 import { fetchData } from "../helpers/api.js";
@@ -40,7 +41,7 @@ function MainPage() {
 
         try {
             const response = await fetchPhotos(query.topic, query.color, page);
-            if (response.photos.length > 0) {
+            if (response.photos.length > 0 && response.next_page) {
                 setPhotos((prevPhotos) => [...prevPhotos, ...response.photos]);
                 setPage((prevPage) => prevPage + 1);
             } else {
@@ -74,24 +75,37 @@ function MainPage() {
     return (
         <div className="app-container">
             <header>
+                <h1>Wyszukaj obrazy, które Cię interesują...</h1>
                 <PhotosConfigurationForm
                     setPhotos={(newPhotos) => {
                         setPhotos(newPhotos);
-                        setPage(2); // Reset page number for new search
+                        setPage(2);
                         setHasMore(true);
                     }}
                     setSelectedPhoto={setSelectedPhoto}
                     setQuery={setQuery}
-                    fetchPhotos={fetchPhotos} // Pass fetchPhotos function to the form component
+                    fetchPhotos={fetchPhotos}
+                    formData={query}
+                    setFormData={setQuery}
                 />
             </header>
-            <PhotoBoard
-                selectedPhoto={selectedPhoto}
-                photos={photos}
-                setSelectedPhoto={setSelectedPhoto}
-            />
-            <div ref={elementRef} className="loading-indicator">
-                {hasMore ? "Loading more photos..." : "No more photos"}
+            {selectedPhoto && (
+                <div className="main-photo">
+                    <img
+                        src={selectedPhoto.src.large}
+                        alt={selectedPhoto.alt}
+                    />
+                </div>
+            )}
+            <div className="photo-board-container">
+                <PhotoBoard
+                    photos={photos}
+                    setSelectedPhoto={setSelectedPhoto}
+                    selectedPhoto={selectedPhoto}
+                />
+                <div ref={elementRef} className="loading-indicator">
+                    {hasMore && <CircularProgress />}
+                </div>
             </div>
         </div>
     );

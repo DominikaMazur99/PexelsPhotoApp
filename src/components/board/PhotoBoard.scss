@@ -1,24 +1,26 @@
-.main-photo img {
-    width: 80%;
-    max-width: 50rem;
-    max-height: 25rem;
-    margin: 2rem auto;
-}
-
 .photo-thumbnails {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 0.025rem solid #ccc;
 }
 
 .photo-thumbnails img {
-    margin: 0.3125rem;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
     cursor: pointer;
-    transition: transform 0.2s;
-    max-height: 12.5rem;
+    border: 2px solid transparent;
+    transition: border 0.3s;
+}
+
+.photo-thumbnails img:hover {
+    border: 2px solid blue;
 }
 
 .photo-thumbnails img.selected {
-    transform: scale(1.1);
-    border: 0.125rem solid #000;
+    border: 3px solid blue;
 }

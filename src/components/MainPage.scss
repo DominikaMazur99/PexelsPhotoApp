@@ -1,14 +1,39 @@
 .app-container {
-    width: calc(100vw - 4rem);
-    height: calc(100vh - 4rem);
-    padding: 2rem;
-    margin: 0 auto;
-    min-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
     box-sizing: border-box;
 }
-.loading-indicator {
-    margin: 20px;
-    font-size: 18px;
-    color: #333;
+
+header {
+    width: 100%;
     text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-photo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.main-photo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.photo-board-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 300px); // Adjust based on header and main photo height
+    overflow-y: auto;
+}
+
+.loading-indicator {
+    margin: 20px 0;
 }

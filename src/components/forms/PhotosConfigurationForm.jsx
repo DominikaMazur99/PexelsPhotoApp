@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReusableInputComponent from "../inputs/ReusableInputComponent";
 import SelectToColorsComponent from "../inputs/SelectToColorsComponents";
 import { options } from "../../helpers/options";
@@ -7,12 +7,13 @@ import "./PhotosConfigurationForm.scss";
 
 const PEXELS_API_URL = "https://api.pexels.com/v1/search";
 
-function PhotosConfigurationForm({ setPhotos, setSelectedPhoto, setQuery }) {
-    const [formData, setFormData] = useState({
-        topic: "",
-        dominateColor: "",
-    });
-
+function PhotosConfigurationForm({
+    setPhotos,
+    setSelectedPhoto,
+    setQuery,
+    formData,
+    setFormData,
+}) {
     const handleChange = (name, value) => {
         setFormData({
             ...formData,
