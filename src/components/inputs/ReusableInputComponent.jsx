@@ -3,7 +3,6 @@ import "./ReusableInputsStyles.scss";
 
 function ReusableInputComponent({
     type = "text",
-    label = "",
     placeholder = "",
     value,
     onChange,

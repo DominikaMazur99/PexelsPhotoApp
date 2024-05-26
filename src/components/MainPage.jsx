@@ -13,17 +13,23 @@ function MainPage() {
     const [selectedPhoto, setSelectedPhoto] = useState(null);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
-    const [query, setQuery] = useState({ topic: "", color: "" });
+    const [query, setQuery] = useState({
+        topic: "",
+        color: "",
+        size: "",
+    });
 
     const elementRef = useRef(null);
 
-    const fetchPhotos = useCallback(async (topic, color, page) => {
+    const fetchPhotos = useCallback(async (topic, color, size, page) => {
         try {
             const url = `${PEXELS_API_URL}?query=${encodeURIComponent(
                 topic
             )}&color=${encodeURIComponent(
                 color || ""
-            )}&page=${encodeURIComponent(page || 1)}`;
+            )}&size=${encodeURIComponent(size || "")}&page=${encodeURIComponent(
+                page || 1
+            )}`;
             const headers = {
                 Authorization: process.env.REACT_APP_PEXELS_API_KEY,
             };
@@ -75,7 +81,7 @@ function MainPage() {
     return (
         <div className="app-container">
             <header>
-                <h1>Wyszukaj obrazy, które Cię interesują...</h1>
+                <h1>Pexels Photo App</h1>
                 <PhotosConfigurationForm
                     setPhotos={(newPhotos) => {
                         setPhotos(newPhotos);

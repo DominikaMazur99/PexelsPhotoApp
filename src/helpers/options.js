@@ -20,3 +20,17 @@ export const options = [
     { value: "turquoise", label: "Turkusowy" },
     { value: "white", label: "Biały" },
 ];
+
+export const tags = [
+    { name: "uroda", value: "beauty" },
+    { name: "moda", value: "fashion" },
+    { name: "jedzenie", value: "food" },
+    { name: "podróże", value: "travel" },
+    { name: "sport", value: "sport" },
+];
+
+export const sizes = [
+    { label: "duży", value: "large" },
+    { label: "średni", value: "medium" },
+    { label: "mały", value: "small" },
+];
