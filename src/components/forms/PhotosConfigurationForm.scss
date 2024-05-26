@@ -25,8 +25,14 @@
             border-radius: 0.5rem;
             border: 0.025rem solid #ccc;
             width: 100%;
-            color: grey;
+            color: white;
+            font-weight: bold;
             padding: 0.5rem; /* Add padding for better button appearance */
+            background-color: rgb(157, 97, 203);
+            cursor: pointer;
+        }
+        &__btn:hover {
+            background-color: #ccc;
         }
     }
 }

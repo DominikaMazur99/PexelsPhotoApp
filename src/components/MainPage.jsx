@@ -14,22 +14,19 @@ function MainPage() {
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState({
-        topic: "",
+        topic: "all", // Initialize with "all"
         color: "",
         size: "",
     });
-
     const elementRef = useRef(null);
 
-    const fetchPhotos = useCallback(async (topic, color, size, page) => {
+    const fetchPhotos = useCallback(async (topic, color, page) => {
         try {
             const url = `${PEXELS_API_URL}?query=${encodeURIComponent(
                 topic
             )}&color=${encodeURIComponent(
                 color || ""
-            )}&size=${encodeURIComponent(size || "")}&page=${encodeURIComponent(
-                page || 1
-            )}`;
+            )}&page=${encodeURIComponent(page || 1)}`;
             const headers = {
                 Authorization: process.env.REACT_APP_PEXELS_API_KEY,
             };
@@ -78,6 +75,20 @@ function MainPage() {
         };
     }, [photos]);
 
+    useEffect(() => {
+        const initializeFetch = async () => {
+            try {
+                const initialPhotos = await fetchPhotos("all", "", "", 1);
+                setPhotos(initialPhotos.photos);
+                setSelectedPhoto(initialPhotos.photos[0] || null);
+            } catch (error) {
+                console.error("Error fetching initial photos:", error);
+            }
+        };
+
+        initializeFetch();
+    }, [fetchPhotos]);
+    console.log(query);
     return (
         <div className="app-container">
             <header>
@@ -89,7 +100,6 @@ function MainPage() {
                         setHasMore(true);
                     }}
                     setSelectedPhoto={setSelectedPhoto}
-                    setQuery={setQuery}
                     fetchPhotos={fetchPhotos}
                     formData={query}
                     setFormData={setQuery}

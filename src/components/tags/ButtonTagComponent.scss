@@ -5,4 +5,12 @@
     border: 0.025rem solid #ccc;
     width: 100%;
     color: grey;
+    background-color: #fff; /* Default background color */
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    &--active {
+        background-color: rgb(220, 213, 213); /* Active background color */
+        color: black; /* Change text color if needed */
+    }
 }

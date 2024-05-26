@@ -28,9 +28,3 @@ export const tags = [
     { name: "podróże", value: "travel" },
     { name: "sport", value: "sport" },
 ];
-
-export const sizes = [
-    { label: "duży", value: "large" },
-    { label: "średni", value: "medium" },
-    { label: "mały", value: "small" },
-];

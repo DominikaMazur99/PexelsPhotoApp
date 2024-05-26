@@ -1,10 +1,16 @@
 .app-container {
+    background-image: url("./assets/background.jpg");
+    background-size: cover; /* Dopasowuje obrazek tak, aby wypełniał całe tło */
+    background-position: center; /* Wyśrodkowuje obrazek */
+    background-repeat: no-repeat; /* Zapobiega powtarzaniu obrazka */
+    width: 100vw; /* Szerokość będzie równa szerokości okna przeglądarki */
+    height: 100vh; /* Wysokość będzie równa wysokości okna przeglądarki */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
-    color: grey;
+    color: rgb(157, 97, 203);
 }
 
 header {
@@ -22,6 +28,7 @@ header {
 
 .main-photo img {
     max-width: 100%;
+    max-height: 50vh; /* Ustawia maksymalną wysokość obrazka na 50% wysokości widoku */
     height: auto;
 }
 
@@ -31,7 +38,9 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: calc(100vh - 300px); // Adjust based on header and main photo height
+    height: calc(
+        100vh - 300px
+    ); /* Adjust based on header and main photo height */
     overflow-y: auto;
 }
 
