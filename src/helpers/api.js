@@ -1,8 +1,6 @@
-// helpers/api.js
-
 export const fetchData = async (
     url,
-    method = "GET",
+    method = 'GET',
     body = {},
     headers = {}
 ) => {
@@ -10,11 +8,11 @@ export const fetchData = async (
         const response = await fetch(url, {
             method,
             headers,
-            body: method !== "GET" ? JSON.stringify(body) : null,
+            body: method !== 'GET' ? JSON.stringify(body) : null,
         });
         return await response.json();
     } catch (error) {
-        console.error("API fetch error:", error);
+        console.error('API fetch error:', error);
         throw error;
     }
 };
