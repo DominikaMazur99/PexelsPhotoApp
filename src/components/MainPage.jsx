@@ -6,8 +6,6 @@ import { fetchData } from '../helpers/api.js';
 
 import './MainPage.scss';
 
-const PEXELS_API_URL = 'https://api.pexels.com/v1/search';
-
 function MainPage() {
     const [photos, setPhotos] = useState([]);
     const [selectedPhoto, setSelectedPhoto] = useState(null);
@@ -28,9 +26,9 @@ function MainPage() {
             try {
                 setIsLoading(true);
 
-                const url = `${PEXELS_API_URL}?query=${encodeURIComponent(
-                    topic
-                )}&color=${encodeURIComponent(
+                const url = `${
+                    process.env.REACT_APP_PEXELS_API_URL
+                }?query=${encodeURIComponent(topic)}&color=${encodeURIComponent(
                     color || ''
                 )}&orientation=${encodeURIComponent(
                     orientation || ''
