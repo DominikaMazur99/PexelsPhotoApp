@@ -1,5 +1,4 @@
-import React from "react";
-import "./PhotoBoard.scss";
+import './PhotoBoard.scss';
 
 function PhotoBoard({ photos, setSelectedPhoto, selectedPhoto }) {
     return (
@@ -10,7 +9,7 @@ function PhotoBoard({ photos, setSelectedPhoto, selectedPhoto }) {
                     src={photo.src.small}
                     alt={photo.alt}
                     onClick={() => setSelectedPhoto(photo)}
-                    className={photo.id === selectedPhoto?.id ? "selected" : ""}
+                    className={photo.id === selectedPhoto?.id ? 'selected' : ''}
                 />
             ))}
         </div>

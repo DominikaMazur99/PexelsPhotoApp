@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import PhotosConfigurationForm from './forms/PhotosConfigurationForm';
 import PhotoBoard from './board/PhotoBoard';
@@ -54,7 +54,7 @@ function MainPage() {
     );
 
     const fetchMoreItems = useCallback(async () => {
-        if (!hasMore || page <= 1) return; // Sprawdzamy czy page jest większe niż 1
+        if (!hasMore || page <= 1) return;
 
         try {
             setIsLoading(true);
@@ -65,10 +65,12 @@ function MainPage() {
                 query.size,
                 page
             );
+            // dopoki w response jest pole next_page to powinnismy wykonywac zapytanie
             if (response.photos.length > 0 && response.next_page) {
                 setPhotos((prevPhotos) => [...prevPhotos, ...response.photos]);
                 setPage((prevPage) => prevPage + 1);
             } else {
+                //jeeli nie ma juz wiecej stron to zmieniam wartosc na 'false'
                 setHasMore(false);
             }
         } catch (error) {
@@ -79,6 +81,7 @@ function MainPage() {
         }
     }, [query, page, hasMore, fetchPhotos]);
 
+    // tutaj sledzimy kiedy dol przewijanego obszaru jest na koncu, zeby moc pobrac kolejne dane
     const onIntersection = (entries) => {
         const firstEntry = entries[0];
         if (firstEntry.isIntersecting && hasMore) {
@@ -120,7 +123,6 @@ function MainPage() {
 
         initializeFetch();
     }, [fetchPhotos]);
-    console.log(query);
     return (
         <div className="app-container">
             {isLoading && (
@@ -160,9 +162,7 @@ function MainPage() {
                 <div
                     ref={elementRef}
                     className="loading-indicator"
-                >
-                    {hasMore && <CircularProgress />}
-                </div>
+                ></div>
             </div>
         </div>
     );
