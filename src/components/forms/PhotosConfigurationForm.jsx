@@ -11,6 +11,7 @@ function PhotosConfigurationForm({
     formData,
     setFormData,
     fetchPhotos,
+    setIsLoading,
 }) {
     const [activeCategory, setActiveCategory] = useState('');
     const handleChange = (name, value) => {
@@ -33,12 +34,13 @@ function PhotosConfigurationForm({
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true);
             const response = await fetchPhotos(
                 formData.topic,
                 formData.color,
                 formData.orientation,
                 formData.size,
-                1
+                1 // Ustawiamy stronę na 1 przy każdym wyszukiwaniu
             );
             setPhotos(response.photos);
             setSelectedPhoto(response.photos[0] || null);
@@ -50,8 +52,11 @@ function PhotosConfigurationForm({
             });
         } catch (error) {
             console.error('Error fetching photos:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
+
     return (
         <form onSubmit={handleSubmit}>
             <div className="form-container">

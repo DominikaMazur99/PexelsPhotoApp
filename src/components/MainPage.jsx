@@ -19,11 +19,15 @@ function MainPage() {
         orientation: '',
         size: '',
     });
+    const [isLoading, setIsLoading] = useState(false);
+
     const elementRef = useRef(null);
 
     const fetchPhotos = useCallback(
         async (topic, color, orientation, size, page) => {
             try {
+                setIsLoading(true);
+
                 const url = `${PEXELS_API_URL}?query=${encodeURIComponent(
                     topic
                 )}&color=${encodeURIComponent(
@@ -42,15 +46,18 @@ function MainPage() {
             } catch (error) {
                 console.error('Error fetching photos:', error);
                 throw error;
+            } finally {
+                setIsLoading(false);
             }
         },
         []
     );
 
     const fetchMoreItems = useCallback(async () => {
-        if (!hasMore) return;
+        if (!hasMore || page <= 1) return; // Sprawdzamy czy page jest większe niż 1
 
         try {
+            setIsLoading(true);
             const response = await fetchPhotos(
                 query.topic,
                 query.color,
@@ -67,6 +74,8 @@ function MainPage() {
         } catch (error) {
             console.error('Error fetching more photos:', error);
             setHasMore(false);
+        } finally {
+            setIsLoading(false);
         }
     }, [query, page, hasMore, fetchPhotos]);
 
@@ -92,18 +101,20 @@ function MainPage() {
     useEffect(() => {
         const initializeFetch = async () => {
             try {
+                setIsLoading(true);
                 const initialPhotos = await fetchPhotos(
                     'all',
                     '',
                     '',
                     '',
-                    '',
-                    1
+                    1 // Ustawiamy stronę na 1 przy pierwszym ładowaniu
                 );
                 setPhotos(initialPhotos.photos);
                 setSelectedPhoto(initialPhotos.photos[0] || null);
             } catch (error) {
                 console.error('Error fetching initial photos:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -112,6 +123,11 @@ function MainPage() {
     console.log(query);
     return (
         <div className="app-container">
+            {isLoading && (
+                <div className="loading-overlay">
+                    <CircularProgress />
+                </div>
+            )}{' '}
             <header>
                 <h1>Pexels Photo App</h1>
                 <PhotosConfigurationForm
@@ -124,6 +140,7 @@ function MainPage() {
                     fetchPhotos={fetchPhotos}
                     formData={query}
                     setFormData={setQuery}
+                    setIsLoading={setIsLoading}
                 />
             </header>
             {selectedPhoto && (
