@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ReusableInputComponent from "../inputs/ReusableInputComponent";
 import SelectToColorsComponent from "../inputs/SelectToColorsComponents";
 import { options, tags } from "../../helpers/options";
-import "./PhotosConfigurationForm.scss";
 import ButtonTagComponent from "../tags/ButtonTagComponent";
+import "./PhotosConfigurationForm.scss";
 
 function PhotosConfigurationForm({
     setPhotos,
@@ -18,6 +18,15 @@ function PhotosConfigurationForm({
             ...formData,
             [name]: value,
         });
+    };
+
+    const clearFilters = () => {
+        setFormData({
+            topic: "all",
+            color: "",
+            size: "",
+        });
+        setActiveCategory("");
     };
 
     const handleSubmit = async (e) => {
@@ -45,7 +54,6 @@ function PhotosConfigurationForm({
                 <div className="form-container__tags">
                     {tags.map((tag) => (
                         <ButtonTagComponent
-                            key={tag.name}
                             name="topic"
                             label={tag.name}
                             value={tag.value}
@@ -68,12 +76,14 @@ function PhotosConfigurationForm({
                         options={options}
                         onChange={(color) => handleChange("color", color)}
                     />
-                    <button
-                        className="form-container__form__btn"
-                        disabled={!formData.topic}
-                        type="submit"
-                    >
+                    <button className="form-container__form__btn" type="submit">
                         szukaj
+                    </button>
+                    <button
+                        className="form-container__form__btn-clear"
+                        onClick={clearFilters}
+                    >
+                        wyczyść filtry
                     </button>
                 </div>
             </div>

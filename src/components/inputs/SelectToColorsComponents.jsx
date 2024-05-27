@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiCancel } from "@mdi/js";
 import "./ReusableInputsStyles.scss";
@@ -8,7 +8,6 @@ function SelectToColorsComponent({
     value,
     onChange,
     options = [],
-    label = "",
 }) {
     const [isOpen, setIsOpen] = useState(false);
 

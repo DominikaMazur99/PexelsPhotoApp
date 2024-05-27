@@ -1,10 +1,10 @@
 .app-container {
     background-image: url("./assets/background.jpg");
-    background-size: cover; /* Dopasowuje obrazek tak, aby wypełniał całe tło */
-    background-position: center; /* Wyśrodkowuje obrazek */
-    background-repeat: no-repeat; /* Zapobiega powtarzaniu obrazka */
-    width: 100vw; /* Szerokość będzie równa szerokości okna przeglądarki */
-    height: 100vh; /* Wysokość będzie równa wysokości okna przeglądarki */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,7 +28,7 @@ header {
 
 .main-photo img {
     max-width: 100%;
-    max-height: 50vh; /* Ustawia maksymalną wysokość obrazka na 50% wysokości widoku */
+    max-height: 40vh;
     height: auto;
 }
 

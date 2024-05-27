@@ -14,7 +14,7 @@ function MainPage() {
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState({
-        topic: "all", // Initialize with "all"
+        topic: "all",
         color: "",
         size: "",
     });

@@ -11,7 +11,7 @@ function ButtonTagComponent({
 }) {
     const handleClick = () => {
         handleChange(name, value);
-        setActiveCategory(value); // Ustawienie aktywnej kategorii na wartość przycisku
+        setActiveCategory(value);
     };
 
     return (

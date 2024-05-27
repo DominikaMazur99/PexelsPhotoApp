@@ -1,4 +1,3 @@
-import React from "react";
 import "./ReusableInputsStyles.scss";
 
 function ReusableInputComponent({
@@ -25,7 +24,7 @@ function ReusableInputComponent({
             case "sport":
                 return "sport";
             default:
-                return value === "all" ? "wszystko" : value;
+                return value === "all" ? "Wyszukaj..." : value;
         }
     };
 
