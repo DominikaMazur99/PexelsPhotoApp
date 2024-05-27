@@ -79,6 +79,8 @@ function MainPage() {
         }
     }, [query, page, hasMore, fetchPhotos]);
 
+    //tu obserwujemy czy jestesmy juz na dole elememtu, na ktorym jest scroll
+    //aby pobrac kolejne dane
     useEffect(() => {
         const onIntersection = (entries) => {
             const firstEntry = entries[0];
