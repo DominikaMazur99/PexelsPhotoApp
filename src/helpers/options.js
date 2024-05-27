@@ -33,6 +33,7 @@ export const tags = [
     { name: 'art', value: 'art' },
     { name: 'technologia', value: 'technology' },
     { name: 'święta', value: 'christmas' },
+    { name: 'sport', value: 'sport' },
 ];
 
 export const orientations = [
@@ -42,7 +43,7 @@ export const orientations = [
 ];
 
 export const sizes = [
-    { value: 'mały', label: 'small' },
-    { value: 'średni', label: 'medium' },
-    { value: 'duzy', label: 'large' },
+    { value: 'small', label: 'mały' },
+    { value: 'medium', label: 'średni' },
+    { value: 'large', label: 'duzy' },
 ];

@@ -1,8 +1,8 @@
-import "./ReusableInputsStyles.scss";
+import './ReusableInputsStyles.scss';
 
 function ReusableInputComponent({
-    type = "text",
-    placeholder = "",
+    type = 'text',
+    placeholder = '',
     value,
     onChange,
     options = [],
@@ -13,35 +13,53 @@ function ReusableInputComponent({
 
     const mapValueToLabel = (value) => {
         switch (value) {
-            case "beauty":
-                return "uroda";
-            case "fashion":
-                return "moda";
-            case "food":
-                return "jedzenie";
-            case "travel":
-                return "podróże";
-            case "sport":
-                return "sport";
+            case 'beauty':
+                return 'uroda';
+            case 'fashion':
+                return 'moda';
+            case 'food':
+                return 'jedzenie';
+            case 'travel':
+                return 'podróże';
+            case 'sport':
+                return 'sport';
+            case 'yoga':
+                return 'joga';
+            case 'dog':
+                return 'psy';
+            case 'nature':
+                return 'natura';
+            case 'home':
+                return 'dom';
+            case 'technology':
+                return 'technologia';
+            case 'christmas':
+                return 'święta';
             default:
-                return value === "all" ? "Wyszukaj..." : value;
+                return value === 'all' ? 'Wyszukaj...' : value;
         }
     };
 
     const inputElement =
-        type === "select" ? (
+        type === 'select' ? (
             <select
                 value={value}
                 onChange={handleSelectChange}
                 className={`input-box__field ${
-                    value !== "" ? "input-box__field--selected" : ""
+                    value !== '' ? 'input-box__field--selected' : ''
                 }`}
             >
-                <option value="" disabled>
+                <option
+                    value=""
+                    disabled
+                >
                     {placeholder}
                 </option>
                 {options.map((option, index) => (
-                    <option key={index} value={option.value}>
+                    <option
+                        key={index}
+                        value={option.value}
+                    >
                         {option.label}
                     </option>
                 ))}
@@ -53,7 +71,7 @@ function ReusableInputComponent({
                 value={mapValueToLabel(value)}
                 onChange={onChange}
                 className={`input-box__field ${
-                    value !== "all" ? "input-box__field--selected" : ""
+                    value !== 'all' ? 'input-box__field--selected' : ''
                 }`}
             />
         );
