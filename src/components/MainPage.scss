@@ -11,22 +11,24 @@
     padding: 1.25rem;
     box-sizing: border-box;
     color: rgb(157, 97, 203);
+
     .loading-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(255, 255, 255, 0.5); /* Przyciemniony overlay */
+        background-color: rgba(255, 255, 255, 0.5); 
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 999; /* Wysoki z-index, aby był na wierzchu */
+        z-index: 999; 
     }
 
     .loading-overlay .MuiCircularProgress-root {
-        color: #3f51b5; /* Kolor loadera */
+        color: #3f51b5; 
     }
+    
     header {
         width: 100%;
         text-align: center;
