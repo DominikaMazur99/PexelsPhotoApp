@@ -79,25 +79,25 @@ function MainPage() {
         }
     }, [query, page, hasMore, fetchPhotos]);
 
-    // tutaj sledzimy kiedy dol przewijanego obszaru jest na koncu, zeby moc pobrac kolejne dane
-    const onIntersection = (entries) => {
-        const firstEntry = entries[0];
-        if (firstEntry.isIntersecting && hasMore) {
-            fetchMoreItems();
-        }
-    };
-
     useEffect(() => {
+        const onIntersection = (entries) => {
+            const firstEntry = entries[0];
+            if (firstEntry.isIntersecting && hasMore) {
+                fetchMoreItems();
+            }
+        };
+
         const observer = new IntersectionObserver(onIntersection);
         if (elementRef.current) {
             observer.observe(elementRef.current);
         }
+
         return () => {
             if (observer) {
                 observer.disconnect();
             }
         };
-    }, [photos]);
+    }, [photos, fetchMoreItems, hasMore]);
 
     useEffect(() => {
         const initializeFetch = async () => {
