@@ -1,9 +1,9 @@
-import { useState } from "react";
-import ReusableInputComponent from "../inputs/ReusableInputComponent";
-import SelectToColorsComponent from "../inputs/SelectToColorsComponents";
-import { options, tags } from "../../helpers/options";
-import ButtonTagComponent from "../tags/ButtonTagComponent";
-import "./PhotosConfigurationForm.scss";
+import { useState } from 'react';
+import ReusableInputComponent from '../inputs/ReusableInputComponent';
+import SelectToColorsComponent from '../inputs/SelectToColorsComponents';
+import { options, orientations, sizes, tags } from '../../helpers/options';
+import ButtonTagComponent from '../tags/ButtonTagComponent';
+import './PhotosConfigurationForm.scss';
 
 function PhotosConfigurationForm({
     setPhotos,
@@ -12,7 +12,7 @@ function PhotosConfigurationForm({
     setFormData,
     fetchPhotos,
 }) {
-    const [activeCategory, setActiveCategory] = useState("");
+    const [activeCategory, setActiveCategory] = useState('');
     const handleChange = (name, value) => {
         setFormData({
             ...formData,
@@ -22,11 +22,12 @@ function PhotosConfigurationForm({
 
     const clearFilters = () => {
         setFormData({
-            topic: "all",
-            color: "",
-            size: "",
+            topic: 'all',
+            color: '',
+            orientation: '',
+            size: '',
         });
-        setActiveCategory("");
+        setActiveCategory('');
     };
 
     const handleSubmit = async (e) => {
@@ -35,6 +36,8 @@ function PhotosConfigurationForm({
             const response = await fetchPhotos(
                 formData.topic,
                 formData.color,
+                formData.orientation,
+                formData.size,
                 1
             );
             setPhotos(response.photos);
@@ -42,10 +45,11 @@ function PhotosConfigurationForm({
             setFormData({
                 topic: formData.topic,
                 color: formData.color,
+                orientation: formData.orientation,
                 size: formData.size,
             });
         } catch (error) {
-            console.error("Error fetching photos:", error);
+            console.error('Error fetching photos:', error);
         }
     };
     return (
@@ -54,6 +58,7 @@ function PhotosConfigurationForm({
                 <div className="form-container__tags">
                     {tags.map((tag) => (
                         <ButtonTagComponent
+                            key={tag.value}
                             name="topic"
                             label={tag.name}
                             value={tag.value}
@@ -67,23 +72,41 @@ function PhotosConfigurationForm({
                     <ReusableInputComponent
                         placeholder="Wyszukaj..."
                         value={formData.topic}
-                        onChange={(e) => handleChange("topic", e.target.value)}
+                        onChange={(e) => handleChange('topic', e.target.value)}
                     />
-
+                    <ReusableInputComponent
+                        type="select"
+                        options={orientations}
+                        placeholder="Orientacja"
+                        value={formData.orientation}
+                        onChange={(orientation) =>
+                            handleChange('orientation', orientation)
+                        }
+                    />
+                    <ReusableInputComponent
+                        type="select"
+                        options={sizes}
+                        placeholder="Rozmiar"
+                        value={formData.size}
+                        onChange={(size) => handleChange('size', size)}
+                    />
                     <SelectToColorsComponent
-                        placeholder="Dominujący kolor"
+                        placeholder="Kolorystyka"
                         value={formData.color}
                         options={options}
-                        onChange={(color) => handleChange("color", color)}
+                        onChange={(color) => handleChange('color', color)}
                     />
-                    <button className="form-container__form__btn" type="submit">
-                        szukaj
-                    </button>
                     <button
                         className="form-container__form__btn-clear"
                         onClick={clearFilters}
                     >
                         wyczyść filtry
+                    </button>
+                    <button
+                        className="form-container__form__btn"
+                        type="submit"
+                    >
+                        szukaj
                     </button>
                 </div>
             </div>
