@@ -1,24 +1,26 @@
-# PexelsPhotoApp
-
-## Uruchomienie
-
-Aby uruchomić aplikację, wykonaj następujące kroki:
-
 1. **Sklonuj repozytorium** lub **pobierz projekt**:
     ```bash
     git clone <URL-repozytorium>
     ```
 
-2. **Otwórz projekt** w dowolnym edytorze kodu (np. VS Code).
+2. **Wejdź na stronę [Pexels](https://www.pexels.com/) i utwórz konto**, a następnie **wygeneruj klucz API**.
 
-3. **Otwórz terminal** i przejdź do katalogu głównego projektu.
+3. **Utwórz plik `.env`** w głównym katalogu projektu i dodaj w nim następujące wartości:
+    ```
+    REACT_APP_PEXELS_API_KEY=<twoj_api_key>
+    REACT_APP_PEXELS_API_URL=https://api.pexels.com/v1/search
+    ```
 
-4. **Zainstaluj niezbędne paczki**:
+4. **Otwórz projekt** w dowolnym edytorze kodu (np. VS Code).
+
+5. **Otwórz terminal** i przejdź do katalogu głównego projektu.
+
+6. **Zainstaluj niezbędne paczki**:
     ```bash
     npm install
     ```
 
-5. **Uruchom projekt**:
+7. **Uruchom projekt**:
     ```bash
     npm start
     ```
