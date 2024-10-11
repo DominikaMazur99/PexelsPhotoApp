@@ -2,7 +2,7 @@ import React from "react";
 import { useState, FormEvent } from "react";
 import ReusableInputComponent from "../inputs/ReusableInputComponent";
 import SelectToColorsComponent from "../inputs/SelectToColorsComponents";
-import { options, orientations, sizes, tags } from "../../helpers/options";
+import { options, orientations, sizes, tags } from "../../helpers/options.ts";
 import ButtonTagComponent from "../tags/ButtonTagComponent.tsx";
 import { IQuery, IPhoto } from "../../interfaces/interfaces";
 import {

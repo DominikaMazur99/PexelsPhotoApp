@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainPage from "./components/MainPage.tsx";
-import "./App.scss";
 
 const App: FC = () => {
     return (
